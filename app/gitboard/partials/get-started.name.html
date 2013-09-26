@@ -1,0 +1,24 @@
+<form ng-submit="$state.go('home', { username: gitboard.username })" role="form">
+  <div class="form-group">
+    <p>
+      To get started with aggegating your Github projects &amp; issues,
+      enter user Github username:
+    </p>
+
+    <label class="sr-only">
+      Github username:
+    </label>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="icon-github-alt"></i>
+      </span>
+
+      <input ng-model="gitboard.username" type="text" class="form-control" placeholder="Github username" autofocus>
+
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-success">Continue</button>
+      </span>
+    </div>
+  </div>
+</form>

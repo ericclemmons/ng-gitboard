@@ -1,0 +1,28 @@
+{
+  "name": "ng-gitboard",
+  "version": "1.0.0",
+  "description": "Github dashboard powered by Angular.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ericclemmons/ng-gitboard.git"
+  },
+  "keywords": [
+    "angular",
+    "github",
+    "demo",
+    "dashboard",
+    "status"
+  ],
+  "author": "Eric Clemmons <eric@smarterspam.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ericclemmons/ng-gitboard/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}

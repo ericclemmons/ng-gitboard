@@ -1,0 +1,31 @@
+{
+  "name": "ng-gitboard",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ericclemmons/ng-gitboard",
+  "authors": [
+    "Eric Clemmons <eric@smarterspam.com>"
+  ],
+  "description": "Github dashboard powered by Angular.",
+  "keywords": [
+    "angular",
+    "github",
+    "dashboard",
+    "demo"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2",
+    "angular-router": "~1.2",
+    "angular-ui-router": "~0.2.0",
+    "bootstrap": "~3.0.0",
+    "font-awesome": "~3.2.1"
+  }
+}
