@@ -17,31 +17,25 @@ angular
           url:              '/name',
           templateUrl:      'gitboard/partials/get-started.name.html'
         })
-        .state('home', {
-          url:              '/:username',
+        .state('user', {
+          url:              '/:user',
           resolve:          {
             user:           ['$stateParams', 'userService', function($stateParams, User) {
-              return User.get({ username: $stateParams.username });
+              return User.get({ user: $stateParams.user });
             }]
           },
           views:            {
             '':             {
-              controller:   'homeController',
-              templateUrl:  'gitboard/partials/home.html'
+              controller:   'userController',
+              templateUrl:  'gitboard/partials/user.html'
             },
             'profile':      {
-              controller:   'homeController',
+              controller:   'userController',
               templateUrl:  'gitboard/partials/profile.html'
             }
           }
         })
       ;
-
-
-      //       },
-      //     }
-      //   })
-      // ;
 
       $urlRouterProvider.otherwise('/get-started');
     }

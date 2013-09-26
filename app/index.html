@@ -15,8 +15,10 @@
       <div ui-view="profile" class="pull-right"></div>
 
       <h3 class="text-muted">
-        <i class="icon-github"></i>
-        Gitboard
+        <a ui-sref="get-started">
+          <i class="icon-github"></i>
+          Gitboard
+        </a>
       </h3>
     </div>
 
@@ -32,7 +34,9 @@
 
   <!-- Gitboard app -->
   <script src="gitboard/gitboard.js"></script>
-  <script src="gitboard/controllers/home.js"></script>
+  <script src="gitboard/controllers/user.js"></script>
+  <script src="gitboard/controllers/repos.js"></script>
   <script src="github/github.js"></script>
   <script src="github/services/user.js"></script>
+  <script src="github/services/repo.js"></script>
 </body>
