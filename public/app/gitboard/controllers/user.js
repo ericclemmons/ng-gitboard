@@ -1,5 +1,5 @@
 angular
-  .module('gitboard')
+  .module('gitboard.controllers.user', [])
   .controller('userController', [
     '$scope',
     'user',

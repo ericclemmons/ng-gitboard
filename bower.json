@@ -23,7 +23,7 @@
   ],
   "dependencies": {
     "angular": "~1.2",
-    "angular-router": "~1.2",
+    "angular-resource": "~1.2",
     "angular-ui-router": "~0.2.0",
     "bootstrap": "~3.0.0",
     "font-awesome": "~3.2.1"

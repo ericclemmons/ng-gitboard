@@ -1,5 +1,7 @@
 angular
-  .module('github')
+  .module('github.services.user', [
+    'ngResource'
+  ])
   .factory('userService', [
     '$resource',
 

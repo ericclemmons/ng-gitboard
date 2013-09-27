@@ -1,5 +1,5 @@
 angular
-  .module('gitboard')
+  .module('gitboard.controllers.repos', [])
   .controller('reposController', [
     '$scope',
     'repos',

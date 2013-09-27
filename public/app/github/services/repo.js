@@ -1,5 +1,7 @@
 angular
-  .module('github')
+  .module('github.services.repo', [
+    'ngResource'
+  ])
   .factory('repoService', [
     '$resource',
 
