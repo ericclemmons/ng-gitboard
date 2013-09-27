@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('build',   ['concat', 'ngtemplates']);
-  grunt.registerTask('default', ['clean', 'connect', 'build', 'watch']);
+  grunt.registerTask('default', ['clean', 'jshint', 'connect', 'build', 'watch']);
 
   grunt.initConfig({
     clean: {

@@ -55,11 +55,30 @@ angular.module('gitboard').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('gitboard/partials/user.html',
-    "Howdy there, {{ user.name }}\n" +
+    "<h3>\n" +
+    "  <strong>{{ user.repos.length }}</strong>\n" +
+    "  Projects\n" +
+    "</h3>\n" +
     "\n" +
-    "{{ repos.length }}\n" +
+    "<input ng-model=\"gitboard.search\" type=\"search\" class=\"form-control input-sm\" placeholder=\"Search projects &amp; issues...\" autofocus=\"\">\n" +
     "\n" +
-    "<div ui-view=\"\"></div>"
+    "<div ng-repeat=\"repo in user.repos | orderBy:'-open_issues'\">\n" +
+    "  <div>\n" +
+    "    <h4 class=\"lead\">\n" +
+    "      {{ repo.name }}\n" +
+    "      <br>\n" +
+    "      <small>\n" +
+    "        {{ repo.description }}\n" +
+    "      </small>\n" +
+    "    </h4>\n" +
+    "\n" +
+    "    <ul>\n" +
+    "      <li ng-repeat=\"issue in repo.issues | filter:gitboard.search\">\n" +
+    "        {{ issue.title }}\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "</div>"
   );
 
 }]);

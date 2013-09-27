@@ -1,37 +1,21 @@
 angular
-  .module('gitboard.controllers.repos', [])
-  .controller('reposController', [
-    '$scope',
-    'repos',
-
-    function($scope, repos) {
-      $scope.repos = repos;
-    }
-  ])
-;
-
-angular
   .module('gitboard.controllers.user', [])
-  .controller('userController', [
+  .controller('gitboard.controllers.user', [
     '$scope',
     'user',
-    'repoService',
 
-    function($scope, user, Repo) {
+    function($scope, user) {
       $scope.user = user;
-
-      user.$promise.then(function(user) {
-        $scope.repos = Repo.query({ user: user.login });
-      });
     }
   ])
 ;
 
 angular
   .module('gitboard', [
-    'ui.router',
-    'github',
-    'gitboard.controllers.user'
+    'chieffancypants.loadingBar',
+    'gitboard.controllers.user',
+    'github.services.users',
+    'ui.router'
   ])
   .config([
     '$stateProvider',
@@ -39,28 +23,31 @@ angular
 
     function($stateProvider, $urlRouterProvider) {
       $stateProvider
+
         .state('get-started', {
           url:              '/get-started',
           templateUrl:      'gitboard/partials/get-started.html'
         })
+
         .state('get-started.name', {
           url:              '/name',
           templateUrl:      'gitboard/partials/get-started.name.html'
         })
+
         .state('user', {
           url:              '/:user',
           resolve:          {
-            user:           ['$stateParams', 'userService', function($stateParams, User) {
-              return User.get({ user: $stateParams.user });
+            user:           ['$stateParams', 'github.services.users', function($stateParams, Users) {
+              return Users.get($stateParams.user);
             }]
           },
           views:            {
             '':             {
-              controller:   'userController',
+              controller:   'gitboard.controllers.user',
               templateUrl:  'gitboard/partials/user.html'
             },
             'profile':      {
-              controller:   'userController',
+              controller:   'gitboard.controllers.user',
               templateUrl:  'gitboard/partials/profile.html'
             }
           }
@@ -83,38 +70,41 @@ angular
 ;
 
 angular
-  .module('github', [
-    'github.services.user',
-    'github.services.repo'
-  ])
-;
+  .module('github.services.users', [])
+  .service('github.services.users', [
+    '$http',
 
-angular
-  .module('github.services.repo', [
-    'ngResource'
-  ])
-  .factory('repoService', [
-    '$resource',
+    function($http) {
+      var baseUrl = 'https://api.github.com';
 
-    function($resource) {
-      var repo = $resource('https://api.github.com/users/:user/repos');
+      var parse = function(response) {
+        return response.data;
+      };
 
-      return repo;
-    }
-  ])
-;
+      this.get = function(login) {
+        return $http
+          .get(baseUrl + '/users/' + login)
+          .then(parse)
+          .then(function(user) {
+            user.repos = $http
+              .get(user.repos_url)
+              .then(parse)
+              .then(function(repos) {
+                angular.forEach(repos, function(repo) {
+                  repo.issues = $http
+                    .get(repo.issues_url.replace('{/number}', ''))
+                    .then(parse)
+                  ;
+                });
 
-angular
-  .module('github.services.user', [
-    'ngResource'
-  ])
-  .factory('userService', [
-    '$resource',
+                return repos;
+              })
+            ;
 
-    function($resource) {
-      var User = $resource('https://api.github.com/users/:user');
-
-      return User;
+            return user;
+          })
+        ;
+      };
     }
   ])
 ;

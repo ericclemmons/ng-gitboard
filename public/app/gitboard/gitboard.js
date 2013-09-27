@@ -1,8 +1,9 @@
 angular
   .module('gitboard', [
-    'ui.router',
-    'github',
-    'gitboard.controllers.user'
+    'chieffancypants.loadingBar',
+    'gitboard.controllers.user',
+    'github.services.users',
+    'ui.router'
   ])
   .config([
     '$stateProvider',
@@ -10,28 +11,31 @@ angular
 
     function($stateProvider, $urlRouterProvider) {
       $stateProvider
+
         .state('get-started', {
           url:              '/get-started',
           templateUrl:      'gitboard/partials/get-started.html'
         })
+
         .state('get-started.name', {
           url:              '/name',
           templateUrl:      'gitboard/partials/get-started.name.html'
         })
+
         .state('user', {
           url:              '/:user',
           resolve:          {
-            user:           ['$stateParams', 'userService', function($stateParams, User) {
-              return User.get({ user: $stateParams.user });
+            user:           ['$stateParams', 'github.services.users', function($stateParams, Users) {
+              return Users.get($stateParams.user);
             }]
           },
           views:            {
             '':             {
-              controller:   'userController',
+              controller:   'gitboard.controllers.user',
               templateUrl:  'gitboard/partials/user.html'
             },
             'profile':      {
-              controller:   'userController',
+              controller:   'gitboard.controllers.user',
               templateUrl:  'gitboard/partials/profile.html'
             }
           }

@@ -1,16 +1,11 @@
 angular
   .module('gitboard.controllers.user', [])
-  .controller('userController', [
+  .controller('gitboard.controllers.user', [
     '$scope',
     'user',
-    'repoService',
 
-    function($scope, user, Repo) {
+    function($scope, user) {
       $scope.user = user;
-
-      user.$promise.then(function(user) {
-        $scope.repos = Repo.query({ user: user.login });
-      });
     }
   ])
 ;

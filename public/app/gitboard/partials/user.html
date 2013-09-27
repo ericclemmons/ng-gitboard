@@ -1,5 +1,24 @@
-Howdy there, {{ user.name }}
+<h3>
+  <strong>{{ user.repos.length }}</strong>
+  Projects
+</h3>
 
-{{ repos.length }}
+<input ng-model="gitboard.search" type="search" class="form-control input-sm" placeholder="Search projects &amp; issues..." autofocus>
 
-<div ui-view></div>
+<div ng-repeat="repo in user.repos | orderBy:'-open_issues'">
+  <div>
+    <h4 class="lead">
+      {{ repo.name }}
+      <br>
+      <small>
+        {{ repo.description }}
+      </small>
+    </h4>
+
+    <ul>
+      <li ng-repeat="issue in repo.issues | filter:gitboard.search">
+        {{ issue.title }}
+      </li>
+    </ul>
+  </div>
+</div>
